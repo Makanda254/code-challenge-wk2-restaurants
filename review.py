@@ -1,5 +1,3 @@
-from customer import Customer
-from restaurant import Restaurant
 class Review:
     reviews=[]
     def __init__(self, customer, restaurant, rating):
