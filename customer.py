@@ -1,4 +1,4 @@
-from lib.review import Review
+from review import Review
 class Customer:
     customers = []
     def __init__(self, given_name, family_name):
@@ -42,6 +42,9 @@ class Customer:
     
     def num_reviews(self):
         return len(self.reviews)
+    @classmethod
+    def all(cls):
+        return cls.customers
 
     
     @classmethod

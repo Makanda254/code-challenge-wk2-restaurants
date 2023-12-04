@@ -16,7 +16,7 @@ class Review:
         return self._restaurant
     
     @classmethod
-    def get_reviews(cls):
+    def all(cls):
         return cls.reviews
     
 
