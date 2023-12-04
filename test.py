@@ -10,10 +10,10 @@ restaurant1 = Restaurant("Serena")
 restaurant2 = Restaurant("Quiver")
 
 
-review1 = Review(customer1, restaurant1, 5.5)
-review2 = Review(customer2, restaurant1, 6.5)
-review3 = Review(customer1, restaurant2, 5.8)
-review4 = Review(customer2, restaurant2, 9.8)
+review1 = Review(customer1, restaurant1, 0)
+review2 = Review(customer2, restaurant1, 0)
+review3 = Review(customer1, restaurant2, 0)
+review4 = Review(customer2, restaurant2, 0)
 
 # Prints all instances of Customer class
 print("Customers: ", end="\n")
@@ -32,22 +32,22 @@ for restaurant in Restaurant.restaurants:
     print(f"{restaurant.get_name()}: {avg_rating}")
 
 # Find customers by given name
-given_name = "Mwangi"
+given_name = "Cici"
 print(f"\nCustomers with given name '{given_name}':")
 matching_customers = Customer.find_all_by_given_name(given_name)
 for customer in matching_customers:
-    print(customer.full_name)
+    print(customer.full_name())
 
 # Print number of Reviews for Each customer
 print("\nNumber of Reviews for Each customer")
 for customer in Customer.all():
-    num_reviews = customer.num_reviews
-    print(f"{customer.full_name}'s Reviews: {num_reviews}")
+    num_reviews = customer.num_reviews()
+    print(f"{customer.full_name()}'s Reviews: {num_reviews}")
 
 # Print list of reviews for each customer
 print("\nList of Reviews for Each Customer:")
 for customer in Customer.all():
-    print(f"{customer.full_name}'s Reviews:")
+    print(f"{customer.full_name()}'s Reviews:")
     for review in customer.reviews:
-        print(f"  - Restaurant: {review.restaurant().get_name}")
-        print(f"    Rating: {review.get_rating()}")
+        print(f"  - Restaurant: {review.restaurant().get_name()}")
+        print(f"    Rating: {review.rating()}")
