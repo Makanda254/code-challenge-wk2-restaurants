@@ -1,101 +1,44 @@
 from review import Review
+
 class Customer:
-    customers = []
+    CUSTOMERS = []  # list of all customers
+
     def __init__(self, given_name, family_name):
-        self.given_name = given_name
-        self.family_name = family_name
-        self.reviews=[]
-        Customer.customers.append(self)
-        
-    def get_given_name(self):
-        return self._given_name
-    
-    def set_given_name(self, given_name):
-        if isinstance(given_name, str):
-            self._given_name = given_name  
-        else:
-            print("Given name should be a string!")  
-            
-    given_name = property(get_given_name, set_given_name)
-            
-    def get_family_name(self):
-        return self._family_name
-    
-    def set_family_name(self, family_name):
-        if isinstance(family_name, str):
-            self._family_name = family_name
-        else:
-            print("Last name should be a string!")
-            
-    family_name = property(get_family_name, set_family_name)
-    
+        self._given_name = given_name
+        self._family_name = family_name
+        self.reviews = []  # List to store reviews associated with this customer
+        Customer.CUSTOMERS.append(self)  # Add the instance to the list of all customers
+
+    @property
+    def given_name(self):
+        return self._given_name  # Return given name of customer
+
+    def family_name(self):
+        return self._family_name  # Return family name of customer
+
+    @property
     def full_name(self):
-        return self.given_name + ' ' + self.family_name
-    
-    def restaurants(self):
-        return ({review.restaurant for review in self.reviews})
-    
-    def add_review(self, restaurant, rating):
-        review = Review(self, restaurant, rating)
-        self.reviews.append(review)
-        restaurant.add_review(review)
-    
-    def num_reviews(self):
-        return len(self.reviews)
+        return f"{self._given_name} {self._family_name}"  # Return full name of customer
+
     @classmethod
     def all(cls):
-        return cls.customers
+        return cls.CUSTOMERS  # returns a list of all customer instances
 
-    
+    def add_review(self, review):
+        self.reviews.append(review)  # Add the review to this customer's list of reviews
+
+    @property
+    def num_reviews(self):
+        return len(self.reviews)  # Number of reviews by this customer
+
     @classmethod
     def find_by_name(cls, name):
-        for customer in cls.customers:
-            if customer.full_name() == name:
-                return customer
-        return None
-    
+        for customer in cls.CUSTOMERS:
+            if customer.full_name == name:
+                return customer  # Find and return a customer instance by full name
+        return None  # Return None if customer not found
+
     @classmethod
     def find_all_by_given_name(cls, name):
-        customers = []
-        for customer in cls.customers:
-            if customer.given_name == name:
-                customers.append(customer)
-        return customers
-    
-customer1 = Customer ("Victor", "Makanda")
-customer2 = Customer ("Lazaro", "Wachira")
-customer3 = Customer ("Vincent", "Mumo")
-
-#Test to get given name
-print(customer1.get_given_name())# output: Victor
-print(customer2.get_given_name())# output: Lazaro
-print(customer3.get_given_name())# output: Vincent
-
-#Test to get family name
-print(customer1.get_family_name())# output: Makanda
-print(customer2.get_family_name())# output: Wachira
-print(customer3.get_family_name())# output: Mumo
-
-#Test to change given name and family name
-customer3.set_given_name("Edgar")
-customer2.set_family_name("Muraguri")
-print(customer3.get_given_name())# output: Edgar
-print(customer2.get_family_name())# output: Muraguri
-
-#Test to get full name
-print(customer1.full_name())# output: Victor Makanda
-
-
-
-
-
-
-
-    
-
-
-   
-
-
-   
-    
+        return [customer for customer in cls.CUSTOMERS if customer._given_name == name]
+        # Finds and returns all customers instances with a specific given name
